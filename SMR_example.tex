@@ -54,13 +54,11 @@
 
 \listoftheorems
 %---------------------------------------------------------------------------
-% Seitenstil
-%pagenumber=footmiddle
 \pagestyle{plain}%% keine Header in der Kopfzeile bzw. plain
 \pagenumbering{arabic}
 %---------------------------------------------------------------------------
 \chapter*{First Chapter}
-Just as an example, this can be the first chapter. Thist Chapter contains the original 2 definitions for the following terms
+Just as an example, this can be the first chapter. Thist Chapter contains the original two definitions for the following terms
 \tterm{stationary ball}{A ball which is not moving.}
 \tterm{contact}{When the ball touches a figure on a rod, or any part of a rod that is internal to the playing
 area.}
@@ -69,9 +67,13 @@ area.}
 %---------------------------------------------------------------------------
 \chapter*{Second Chapter}
 Now there is a second chapter that may reference some of these definitions
-\tterm{move}{A \tref{contact} that causes a \tref{stationary ball} to move, or a moving ball to change speed or direction}
+\tterm{move}{A \tref{contact} that causes a \tref{stationary ball} to move, or a moving ball to change speed or direction.}
+Please note, that the references from the definition link to the original definition.
 
-
+%---------------------------------------------------------------------------
+\newpage
+\chapter*{Third Chapter}
+Some Plain text, that just references to \tref{move} and \tref{stationary ball}.
 
 %---------------------------------------------------------------------------
 \end{document}
