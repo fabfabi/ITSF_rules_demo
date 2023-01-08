@@ -1,0 +1,77 @@
+%---------------------------------------------------------------------------
+\documentclass[fontsize=11pt, paper=a4]{report}
+%---------------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}  
+\usepackage{url}
+\usepackage{lipsum}
+\usepackage[utf8]{inputenc}
+\usepackage{clipboard} %copy the definitions via \copy{key}{text} and \paste
+\usepackage{amsthm}
+\usepackage{thmtools}
+\declaretheorem[numbered=no]{Definition}
+%---------------------------------------------------------------------------
+
+%\newcommand{\tterm}[2]{\hypertarget{#1}{\defformat{#1}}:#2}
+%\newcommand{\tref}[1]{\hyperlink{#1}{\refformat{#1}}}
+%---------------------------------------------------------------------------
+
+\renewcommand{\listtheoremname}{List of Definitions} %needed in order to have it in the title for \listoftheorems
+
+
+
+%---------------------------------------------------------------------------
+% Formatting for the definitions and their references
+\newcommand{\refformat}[1]{{\textsc{#1}}} %formatting of references to definitions
+\newcommand{\defformat}[1]{{\textbf{\refformat{#1}}}}%formatting of definitions --> References in bold face
+
+%---------------------------------------------------------------------------
+% Actual Code for the Definitions and the references
+
+%\newcommand{\tterm}[2]{{\defformat{#1}: #2}} % this one works :-)
+\newcommand{\tterm}[2]{
+%{\defformat{#1}: #2}
+\begin{Definition}[name=\defformat{#1}]
+	#2
+\end{Definition}
+}
+\newcommand{\tref}[1]{\refformat{#1}}
+
+%---------------------------------------------------------------------------
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+%---------------------------------------------------------------------------
+%---------------------------------------------------------------------------
+\begin{document}
+
+
+%---------------------------------------------------------------------------
+\title{SMR technical demo for \LaTeX}
+\maketitle
+%\author{someone}
+
+\listoftheorems
+%---------------------------------------------------------------------------
+% Seitenstil
+%pagenumber=footmiddle
+\pagestyle{plain}%% keine Header in der Kopfzeile bzw. plain
+\pagenumbering{arabic}
+%---------------------------------------------------------------------------
+\chapter*{First Chapter}
+Just as an example, this can be the first chapter. Thist Chapter contains the original 2 definitions for the following terms
+\tterm{stationary ball}{A ball which is not moving.}
+\tterm{contact}{When the ball touches a figure on a rod, or any part of a rod that is internal to the playing
+area.}
+
+\newpage
+%---------------------------------------------------------------------------
+\chapter*{Second Chapter}
+Now there is a second chapter that may reference some of these definitions
+\tterm{move}{A \tref{contact} that causes a \tref{stationary ball} to move, or a moving ball to change speed or direction}
+
+
+
+%---------------------------------------------------------------------------
+\end{document}
+%
