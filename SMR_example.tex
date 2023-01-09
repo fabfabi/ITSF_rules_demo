@@ -3,22 +3,25 @@
 %---------------------------------------------------------------------------
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}  
+%\usepackage{xparse} %needed to get \ExplSyntaxOn for glossaries
 \usepackage{url}
 \usepackage{lipsum}
 \usepackage[utf8]{inputenc}
-\usepackage{clipboard} %copy the definitions via \copy{key}{text} and \paste
-\usepackage{amsthm}
-\usepackage{thmtools}
-\declaretheorem[numbered=no]{Definition}
+%\usepackage{clipboard} %copy the definitions via \copy{key}{text} and \paste
+%\usepackage{glossaries}
+%\usepackage{amsthm} % for Definitions and Theoremes
+%\usepackage{thmtools} % for Definitions and Theoremes
+%\declaretheorem[numbered=no]{Definition}
 %---------------------------------------------------------------------------
 
 %\newcommand{\tterm}[2]{\hypertarget{#1}{\defformat{#1}}:#2}
 %\newcommand{\tref}[1]{\hyperlink{#1}{\refformat{#1}}}
 %---------------------------------------------------------------------------
 
-\renewcommand{\listtheoremname}{List of Definitions} %needed in order to have it in the title for \listoftheorems
+%\renewcommand{\listtheoremname}{List of Definitions} %needed in order to have it in the title for \listoftheorems
 
-
+\usepackage{hyperref}
+\usepackage{cleveref}
 
 %---------------------------------------------------------------------------
 % Formatting for the definitions and their references
@@ -30,17 +33,17 @@
 
 %\newcommand{\tterm}[2]{{\defformat{#1}: #2}} % this one works :-)
 \newcommand{\tterm}[2]{
-%{\defformat{#1}: #2}
-\begin{Definition}[name=\defformat{#1}]
-\label{#1}
-	#2
-\end{Definition}
+	%{\defformat{#1}: #2}
+	#1
+%	\newglossaryentry{#1}{
+%			name=#1,
+%			description = {#2}
+%		}
 }
 \newcommand{\tref}[1]{\refformat{\nameref{#1}}}
 
+%\makeglossaries
 %---------------------------------------------------------------------------
-\usepackage{hyperref}
-\usepackage{cleveref}
 
 %---------------------------------------------------------------------------
 %---------------------------------------------------------------------------
@@ -52,13 +55,13 @@
 \maketitle
 %\author{someone}
 
-\listoftheorems
+%\listoftheorems
 %---------------------------------------------------------------------------
 \pagestyle{plain}%% keine Header in der Kopfzeile bzw. plain
 \pagenumbering{arabic}
 %---------------------------------------------------------------------------
 \chapter*{First Chapter}
-Just as an example, this can be the first chapter. Thist Chapter contains the original two definitions for the following terms
+Just as an example, this can be the first chapter. This Chapter contains the original two definitions for the following terms
 \tterm{stationary ball}{A ball which is not moving.}
 \tterm{contact}{When the ball touches a figure on a rod, or any part of a rod that is internal to the playing
 area.}
@@ -75,6 +78,10 @@ Please note, that the references from the definition link to the original defini
 \chapter*{Third Chapter}
 Some Plain text, that just references to \tref{move} and \tref{stationary ball}.
 
+%---------------------------------------------------------------------------
+\clearpage
+
+%\printglossary%[title=Definitions, toctitle=List of terms]
 %---------------------------------------------------------------------------
 \end{document}
 %
