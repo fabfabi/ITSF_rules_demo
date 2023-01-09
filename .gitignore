@@ -1,2 +1,4 @@
 *.synctex.gz
-3*
+*.aux
+*.log
+*.synctex(busy)
