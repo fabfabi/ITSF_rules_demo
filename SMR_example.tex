@@ -7,14 +7,12 @@
 \usepackage{lipsum}
 \usepackage[utf8]{inputenc}
 %\usepackage{clipboard} %copy the definitions via \copy{key}{text} and \paste
-\usepackage[sanitize=none]{glossaries}
+%\usepackage[sanitize=none]{glossaries}
+\usepackage[automake]{glossaries}
 \usepackage{amsthm} % for Definitions and Theoremes
 \usepackage{thmtools} % for Definitions and Theoremes
-%\declaretheorem[numbered=no]{Definition}
-%---------------------------------------------------------------------------
+\declaretheorem[numbered=no]{Definition}
 
-%\newcommand{\tterm}[2]{\hypertarget{#1}{\defformat{#1}}:#2}
-%\newcommand{\tref}[1]{\hyperlink{#1}{\refformat{#1}}}
 %---------------------------------------------------------------------------
 
 %\renewcommand{\listtheoremname}{List of Definitions} %needed in order to have it in the title for \listoftheorems
@@ -32,29 +30,40 @@
 
 %\newcommand{\tterm}[2]{{\defformat{#1}: #2}} % this one works :-)
 
-\newcommand{\dtterm}[2]{%Initial definition for the glossary
+\newcommand{\gtterm}[2]{%Initial definition for the glossary
 %	{\defformat{#1}: #2}
 	\newglossaryentry{#1}{
 			name=#1,
 			description = {#2}
 		}
 }
-\newcommand{\tref}[1]{\refformat{{#1}}}
+
+\newcommand{\dtterm}[1]{
+%{\defformat{#1}: #2}
+\begin{Definition}[name=\defformat{#1}]
+%\label{#1}
+	 \glsdesc{#1}
+\end{Definition}
+}
+
+\newcommand{\tref}[1]{\refformat{\gls{#1}}}
 
 \newcommand{\tterm}[1]{
-\defformat{#1}: \glsdesc{#1}
+	\defformat{#1}: \glsdesc{#1}
 }
 
 
 %---------------------------------------------------------------------------
-
+%---------------------------------------------------------------------------
+%Glossaries stuff
+\renewcommand*{\glsnamefont}[1]{\defformat{#1}} %Definitions of the name in the glossary
 %---------------------------------------------------------------------------
 %---------------------------------------------------------------------------
 
 \makeglossaries
-\dtterm{stationary ball}{A ball which is not moving.}
-\dtterm{contact}{When the ball touches a figure on a rod, or any part of a rod that is internal to the playing field.}
-\dtterm{move}{A \tref{contact} that causes a \tref{stationary ball}}
+\gtterm{stationary ball}{A ball which is not moving.}
+\gtterm{contact}{When the ball touches a figure on a rod, or any part of a rod that is internal to the playing field.}
+\gtterm{move}{A \tref{contact} that causes a \tref{stationary ball} to move, or a moving ball to change speed or direction.}
 \begin{document}
 
 
@@ -69,26 +78,25 @@
 \pagenumbering{arabic}
 %---------------------------------------------------------------------------
 \chapter*{First Chapter}
-Just as an example, this can be the first chapter. This Chapter contains the original two definitions for the following terms
-\tterm{stationary ball}
-\tterm{contact}
+Just as an example, this can be the first chapter. This Chapter contains the original two big definitions for the following terms
+\dtterm{stationary ball}
+\dtterm{contact}
 
 \newpage
 %---------------------------------------------------------------------------
 \chapter*{Second Chapter}
-Important Definitions
+Listing some important definitions for chapter 2
 \begin{enumerate}
 	\item{\tterm{stationary ball}}
 \end{enumerate}
-
-Now there is a second chapter that may reference some of these definitions
-\tterm{move}
+Now there is a second chapter that may reference some of these definitions. It also defines a new one...
+\dtterm{move}
 Please note, that the references from the definition link to the original definition.
 
 %---------------------------------------------------------------------------
 \newpage
 \chapter*{Third Chapter}
-Important Definitions
+Listing important definitions for this chapter
 \begin{enumerate}
 	\item{\tterm{move}}
 	\item{\tterm{stationary ball}}
@@ -98,7 +106,8 @@ Some Plain text, that just references to \tref{move} and \tref{stationary ball}.
 %---------------------------------------------------------------------------
 \clearpage
 
-\printglossary%[title=Definitions, toctitle=List of terms]
+\printglossary[title=Definitions, toctitle=List of terms, nonumberlist]
+%\printnoidxglossary
 %---------------------------------------------------------------------------
 \end{document}
 %
