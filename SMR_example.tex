@@ -61,7 +61,24 @@
 
 %\newcommand{\tref}[1]{\refformat{\gls{#1}}}
 %\newcommand{\tref}[1]{\refformat{\nameref{\gls{#1}}}}
-\newcommand{\tref}[1]{\refformat{{#1}}}
+
+%\newcommand{\tref}[1]{\refformat{{#1}}} %this one is working
+
+%\newcommand{\tref}[1]{
+%	\ifcsname \nameref{#1} \endcsname% if this command exists
+ % 	 	\refformat{\nameref{#1}}
+% 	\else%
+%    		\refformat{#1}
+%  	\fi%
+%}
+
+\newcommand{\tref}[1]{%
+  \@ifundefined{\r@#1}{%
+    \refformat{\ref{#1}}%
+  }{%
+    asdf#1
+  }%
+}
 
 \newcommand{\tterm}[1]{
 	\defformat{#1}: \glsdesc{#1}
