@@ -81,6 +81,7 @@
 \gtterm{move}{A \tref{contact} that causes a \tref{stationary ball} to move, or a moving ball to change speed or direction.}
 \begin{document}
 
+\newcommand{\recap}[1]{\item{\tterm{#1}}}
 
 %---------------------------------------------------------------------------
 \title{SMR technical demo for \LaTeX}
@@ -91,6 +92,7 @@
 %---------------------------------------------------------------------------
 \pagestyle{plain}%% keine Header in der Kopfzeile bzw. plain
 \pagenumbering{arabic}
+
 %---------------------------------------------------------------------------
 \chapter*{First Chapter}
 Just as an example, this can be the first chapter. This Chapter contains the original two big definitions for the following terms
@@ -98,25 +100,18 @@ Just as an example, this can be the first chapter. This Chapter contains the ori
 \dtterm{contact}
 
 \newpage
+
 %---------------------------------------------------------------------------
 \chapter*{Second Chapter}
-Listing some important definitions for chapter 2
+Useful definitions
 \begin{enumerate}
-	\item{\tterm{stationary ball}}
+	\recap{stationary ball}
+	\recap{contact}
 \end{enumerate}
 Now there is a second chapter that may reference some of these definitions. It also defines a new one...
 \dtterm{move}
+ And later there is some plain text, that just references \tref{move} and \tref{stationary ball}.
 
-
-%---------------------------------------------------------------------------
-\newpage
-\chapter*{Third Chapter}
-Listing important definitions for this chapter
-\begin{enumerate}
-	\item{\tterm{move}}
-	\item{\tterm{stationary ball}}
-\end{enumerate}
-Some Plain text, that just references to \tref{move} and \tref{stationary ball}.
 
 %---------------------------------------------------------------------------
 \clearpage
