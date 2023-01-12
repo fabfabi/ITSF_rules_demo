@@ -47,12 +47,13 @@
 
 \newcommand{\gtterm}[2]{%Initial definition for the glossary
 %	{\defformat{#1}: #2}
-	\glstarget{##1}{
-		\newglossaryentry{#1}{
-				name=#1,
-				description = {#2}
-			}
-		}
+\label{#1}
+	%\glstarget{##1}{%
+		\newglossaryentry{#1}{%
+				name=#1,%
+				description = {#2}%
+			}%
+		%}%
 }
 
 \newcommand{\dtterm}[1]{
@@ -70,7 +71,7 @@
 %\newcommand{\dref}[1]{\refformat{\nameref{d:#1}}} %ref to definition
 \newcommand{\dref}[1]{\refformat{\hyperref[d:#1]{#1}}} %ref to definition
 \newcommand{\tref}[1]{\refformat{{#1}}} %Ref to technical term (general)
-\newcommand{\gref}[1]{\glslink{#1}{\refformat{LINK #1}}} %Ref to Glossary
+\newcommand{\gref}[1]{\glstarget{#1}{\refformat{LINK #1}}} %Ref to Glossary
 
 \newcommand{\tterm}[1]{
 	\defformat{#1}: \glsdesc{#1}
