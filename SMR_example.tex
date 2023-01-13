@@ -73,10 +73,10 @@
 \newcommand{\dref}[1]{\refformat{\hyperref[d:#1]{#1}}} %ref to definition -> works
 \newcommand{\tref}[1]{\refformat{{#1}}} %Ref to technical term (general)
 %\newcommand{\gref}[1]{\glstarget{#1}{\refformat{LINK #1}}} %Ref to Glossary - does not work
-\newcommand{\gref}[1]{\refformat{LINK\glossentryname{#1}}} %Ref to Glossary
+\newcommand{\gref}[1]{{LINK\glossentryname{#1}}} %Ref to Glossary
 
 \newcommand{\tterm}[1]{
-	\defformat{#1}: \glsdesc{#1}
+	\defformat{#1}: \glsdesc*{#1} %star removes hyperlink
 }
 
 
