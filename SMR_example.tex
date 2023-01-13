@@ -8,6 +8,7 @@
 \usepackage[utf8]{inputenc}
 %\usepackage{clipboard} %copy the definitions via \copy{key}{text} and \paste
 %\usepackage[sanitize=none]{glossaries}
+\usepackage{hyperref}%needs to be loaded BEFORE glossaries
 \usepackage[automake]{glossaries}
 
 
@@ -23,14 +24,14 @@
     spacebelow=6pt, 
     headfont=\normalfont\bfseries,
     notefont=\mdseries\bfseries, 
-    notebraces={}{}, 
+    notebraces={}{},%to not have anything around the name
     bodyfont=\normalfont,
     postheadspace=1em,
     headpunct={:}]{defstyle}
 \declaretheorem[numbered=no, style = defstyle]{Definition}
 \renewcommand{\listtheoremname}{List of Definitions} %needed in order to have it in the title for \listoftheorems
 
-\usepackage{hyperref}
+
 %\usepackage{cleveref}
 
 %---------------------------------------------------------------------------
@@ -60,7 +61,7 @@
 %{\defformat{#1}: #2}
 \begin{Definition}[name=\defformat{#1}]
 	\label{d:#1}
-	 \glsdesc{#1}
+	 \glsdesc*{#1} %Star for ``no hyperlink''
 \end{Definition}
 }
 
@@ -69,9 +70,10 @@
 %\newcommand{\tref}[1]{\refformat{\nameref{\gls{#1}}}}
 
 %\newcommand{\dref}[1]{\refformat{\nameref{d:#1}}} %ref to definition
-\newcommand{\dref}[1]{\refformat{\hyperref[d:#1]{#1}}} %ref to definition
+\newcommand{\dref}[1]{\refformat{\hyperref[d:#1]{#1}}} %ref to definition -> works
 \newcommand{\tref}[1]{\refformat{{#1}}} %Ref to technical term (general)
-\newcommand{\gref}[1]{\glstarget{#1}{\refformat{LINK #1}}} %Ref to Glossary
+%\newcommand{\gref}[1]{\glstarget{#1}{\refformat{LINK #1}}} %Ref to Glossary - does not work
+\newcommand{\gref}[1]{\refformat{LINK\glossentryname{#1}}} %Ref to Glossary
 
 \newcommand{\tterm}[1]{
 	\defformat{#1}: \glsdesc{#1}
@@ -81,7 +83,7 @@
 %---------------------------------------------------------------------------
 %---------------------------------------------------------------------------
 %Glossaries stuff
-\renewcommand*{\glsnamefont}[1]{\defformat{#1}} %Definitions of the name in the glossary
+\renewcommand{\glsnamefont}[1]{\defformat{#1}} %Defines the name in the glossary
 \newcommand{\recap}[1]{\item{\tterm{#1}}}
 %---------------------------------------------------------------------------
 %---------------------------------------------------------------------------
