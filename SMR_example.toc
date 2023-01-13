@@ -1,0 +1,4 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}First Chapter}{2}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Second Chapter}{3}{chapter.2}%
+\contentsline {chapter}{\numberline {3}How it works}{4}{chapter.3}%
