@@ -10,13 +10,15 @@
 
 \usepackage{hyperref}%needs to be loaded BEFORE glossaries
 \usepackage[automake]{glossaries}
-
+%\usepackage[toc, section=section]{glossaries} %makes the entry chapter below a section
 
 %---------------------------------------------------------------------------
 \usepackage{amsthm} % for Definitions and Theoremes
 %\theoremstyle{plain}
-%\newtheorem{Definition}{Definition}
 
+%---------------------------------------------------------------------------
+\usepackage{titlesec} %to not say `Chapter i' in front of every chapter
+\titleformat{\chapter}{\normalfont\huge}{\thechapter.}{20pt}{\huge\bf}
 
 %---------------------------------------------------------------------------
 % Formatting for the definitions and their references
@@ -110,6 +112,8 @@
 \title{SMR technical demo for \LaTeX}
 \maketitle
 
+\tableofcontents
+
 %---------------------------------------------------------------------------
 \pagestyle{plain}%% keine Header in der Kopfzeile bzw. plain
 \pagenumbering{arabic}
@@ -133,13 +137,15 @@ Useful definitions
 Now there is a second chapter that may reference some of these definitions. It also defines a new one...
 \dtterm{move}
  And later there is some plain text, that where \gref{move} links to the glossary and \dref{stationary ball} links to the original definiton.\\
- The Glossary Entries link to the original definitions. Except for \gref{team} that just shows up in the useful definitions and in the glossary.
+ The Glossary Entries link to the original definitions. Except for \gref{team} that does not have such a definition.
 
-\chapter{Third Chapter}
+\chapter{How it works}
+There are several macros defined. For example there is a macro for a definition and a reference for a definition. If you change the formatting for the macro, it changes throughout the entire document.\\
+All glossary entries are defined before the actual document starts (invisible). Lateron they are just copied to where they are needed. So if you want to have the term \tref{move} in the `useful definitions' part, the description will be automatically added via the macro recap(move). If the original definition is changed, all related instances will be changed as well.\\
+The hyperlinks are generated automatically based on which macro you use. You can use the definition of \tref{move} without the link, you can reference \dref{move} with a link to the definition or you can reference \gref{move} with a link to the glossary.
 
 %---------------------------------------------------------------------------
 \clearpage
-
 \printglossary[title=Definitions, toctitle=List of terms]%, nonumberlist]
 %\printnoidxglossary
 %---------------------------------------------------------------------------
