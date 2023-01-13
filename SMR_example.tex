@@ -6,75 +6,148 @@
 \usepackage{url}
 \usepackage{lipsum}
 \usepackage[utf8]{inputenc}
-\usepackage{clipboard} %copy the definitions via \copy{key}{text} and \paste
-\usepackage{amsthm}
-\usepackage{thmtools}
-\declaretheorem[numbered=no]{Definition}
+%\usepackage{clipboard} %copy the definitions via \copy{key}{text} and \paste
+
+\usepackage{hyperref}%needs to be loaded BEFORE glossaries
+\usepackage[automake]{glossaries}
+%\usepackage[toc, section=section]{glossaries} %makes the entry chapter below a section
+
 %---------------------------------------------------------------------------
+\usepackage{amsthm} % for Definitions and Theoremes
+%\theoremstyle{plain}
 
-%\newcommand{\tterm}[2]{\hypertarget{#1}{\defformat{#1}}:#2}
-%\newcommand{\tref}[1]{\hyperlink{#1}{\refformat{#1}}}
 %---------------------------------------------------------------------------
-
-\renewcommand{\listtheoremname}{List of Definitions} %needed in order to have it in the title for \listoftheorems
-
-
+\usepackage{titlesec} %to not say `Chapter i' in front of every chapter
+\titleformat{\chapter}{\normalfont\huge}{\thechapter.}{20pt}{\huge\bf}
 
 %---------------------------------------------------------------------------
 % Formatting for the definitions and their references
-\newcommand{\refformat}[1]{{\textsc{#1}}} %formatting of references to definitions
+\newcommand{\refformat}[1]{{\textsc{#1}}}			 %formatting of references to definitions
 \newcommand{\defformat}[1]{{\textbf{\refformat{#1}}}}%formatting of definitions --> References in bold face
 
 %---------------------------------------------------------------------------
-% Actual Code for the Definitions and the references
+\usepackage{thmtools} % for Definitions and Theoremes
+\declaretheoremstyle[
+    spaceabove=6pt, 
+    spacebelow=6pt, 
+    headfont=\normalfont\bfseries,
+    notefont=\mdseries\bfseries, 
+    notebraces={}{},%to not have anything around the name
+    bodyfont=\normalfont,
+    postheadspace=1em,
+    headpunct={:}]{defstyle}
+\declaretheorem[numbered=no, style = defstyle]{Definition}
+\renewcommand{\listtheoremname}{List of Definitions} %needed in order to have it in the title for \listoftheorems
 
-%\newcommand{\tterm}[2]{{\defformat{#1}: #2}} % this one works :-)
-\newcommand{\tterm}[2]{
+% The formatting of the Definintions environment
+\newcommand{\dtterm}[1]{
 %{\defformat{#1}: #2}
 \begin{Definition}[name=\defformat{#1}]
-\label{#1}
-	#2
+	\label{d:#1}
+	 \glsdesc*{#1} %Star for ``no hyperlink''
 \end{Definition}
 }
-\newcommand{\tref}[1]{\refformat{\nameref{#1}}}
+
+
+
+%\def\UrlFont{\normalfont}%formatting links to normal - this might be needed in case of hyperref
 
 %---------------------------------------------------------------------------
-\usepackage{hyperref}
-\usepackage{cleveref}
+% Actual Code for the Defining the terms for the glossary
+
+\newcommand{\gtterm}[2]{%Initial definition for the glossary
+\label{#1}
+	%\glstarget{##1}{%
+		\newglossaryentry{#1}{%
+				name=#1,%
+				description = {#2}%
+			}%
+		%}%
+}
+
+
+%---------------------------------------------------------------------------
+%References within the document within the documents
+%\newcommand{\dref}[1]{\refformat{\nameref{d:#1}}} %ref to definition
+
+%to Definition:
+\newcommand{\dref}[1]{\refformat{\hyperref[d:#1]{#1}}} 
+%To technical Term
+\newcommand{\tref}[1]{\refformat{{#1}}} %Ref to technical term (general)
+%to glossary
+\newcommand{\gref}[1]{\refformat{\gls{#1}}} %Ref to Glossary
+
+
+
 
 %---------------------------------------------------------------------------
 %---------------------------------------------------------------------------
+%Glossaries stuff
+\renewcommand{\glsnamefont}[1]{\defformat{\hyperref[d:#1]{#1}}} %Defines the name in the glossary
+
+\newcommand{\tterm}[1]{% this one is used for the 
+	\defformat{#1}: \glsdesc*{#1} %star removes hyperlink
+}
+\newcommand{\recap}[1]{\item{\tterm{#1}}}
+%--------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+% Define all the technical Terms
+\makeglossaries
+\gtterm{stationary ball}{A ball which is not moving}
+\gtterm{contact}{When the ball touches a figure on a rod, or any part of a rod that is internal to the playing field}
+\gtterm{move}{A \tref{contact} that causes a \tref{stationary ball} to move, or a moving ball to change speed or direction}
+\gtterm{team}{One or more players on the same side of the table}
+
+%---------------------------------------------------------------------------
+%---------------------------------------------------------------------------
+%---------------------------------------------------------------------------
+%---------------------------------------------------------------------------
+%Start the Document
 \begin{document}
+
 
 
 %---------------------------------------------------------------------------
 \title{SMR technical demo for \LaTeX}
 \maketitle
-%\author{someone}
 
-\listoftheorems
+\tableofcontents
+
 %---------------------------------------------------------------------------
 \pagestyle{plain}%% keine Header in der Kopfzeile bzw. plain
 \pagenumbering{arabic}
+
 %---------------------------------------------------------------------------
-\chapter*{First Chapter}
-Just as an example, this can be the first chapter. Thist Chapter contains the original two definitions for the following terms
-\tterm{stationary ball}{A ball which is not moving.}
-\tterm{contact}{When the ball touches a figure on a rod, or any part of a rod that is internal to the playing
-area.}
+\chapter{First Chapter}
+Just as an example, this can be the first chapter. This Chapter contains the original two big definitions for the following terms.
+\dtterm{stationary ball}
+\dtterm{contact}
 
 \newpage
-%---------------------------------------------------------------------------
-\chapter*{Second Chapter}
-Now there is a second chapter that may reference some of these definitions
-\tterm{move}{A \tref{contact} that causes a \tref{stationary ball} to move, or a moving ball to change speed or direction.}
-Please note, that the references from the definition link to the original definition.
 
 %---------------------------------------------------------------------------
-\newpage
-\chapter*{Third Chapter}
-Some Plain text, that just references to \tref{move} and \tref{stationary ball}.
+\chapter{Second Chapter}
+Useful definitions
+\begin{enumerate}
+	\recap{stationary ball}
+	\recap{contact}
+	\recap{team}
+\end{enumerate}
+Now there is a second chapter that may reference some of these definitions. It also defines a new one...
+\dtterm{move}
+ And later there is some plain text, that where \gref{move} links to the glossary and \dref{stationary ball} links to the original definiton.\\
+ The Glossary Entries link to the original definitions. Except for \gref{team} that does not have such a definition.
 
+\chapter{How it works}
+There are several macros defined. For example there is a macro for a definition and a reference for a definition. If you change the formatting for the macro, it changes throughout the entire document.\\
+All glossary entries are defined before the actual document starts (invisible). Lateron they are just copied to where they are needed. So if you want to have the term \tref{move} in the `useful definitions' part, the description will be automatically added via the macro recap(move). If the original definition is changed, all related instances will be changed as well.\\
+The hyperlinks are generated automatically based on which macro you use. You can use the definition of \tref{move} without the link, you can reference \dref{move} with a link to the definition or you can reference \gref{move} with a link to the glossary.
+
+%---------------------------------------------------------------------------
+\clearpage
+\printglossary[title=Definitions, toctitle=List of terms]%, nonumberlist]
+%\printnoidxglossary
 %---------------------------------------------------------------------------
 \end{document}
 %

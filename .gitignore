@@ -1,2 +1,9 @@
 *.synctex.gz
-3*
+*.aux
+*.log
+*.synctex(busy)
+*.ist
+*.glo
+*.out
+*.glg
+*.gls
