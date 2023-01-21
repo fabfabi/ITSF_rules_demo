@@ -1,16 +1,31 @@
 %---------------------------------------------------------------------------
 \documentclass[fontsize=11pt, paper=a4]{report}
 %---------------------------------------------------------------------------
-\usepackage[T1]{fontenc}
+
 \usepackage[english]{babel}  
 \usepackage{url}
 \usepackage{lipsum}
 \usepackage[utf8]{inputenc}
-%\usepackage{clipboard} %copy the definitions via \copy{key}{text} and \paste
 
+%---------------------------------------------------------------------------
+%\usepackage{arev}
+\usepackage[T1]{fontenc}
+\usepackage[notmath]{sansmathfonts}
+
+%\renewcommand{\sfdefault}{fav}
+
+%\usepackage{helvet} 
+%\renewcommand{\familydefault}{\sfdefault} %delete serifs
+
+%---------------------------------------------------------------------------
+%\usepackage{clipboard} %copy the definitions via \copy{key}{text} and \paste
+%---------------------------------------------------------------------------
 \usepackage{hyperref}%needs to be loaded BEFORE glossaries
 \usepackage[automake]{glossaries}
 %\usepackage[toc, section=section]{glossaries} %makes the entry chapter below a section
+
+%\usepackage{microtype}
+%\DisableLigatures{encoding=*,family=*}
 
 %---------------------------------------------------------------------------
 \usepackage{amsthm} % for Definitions and Theoremes
@@ -22,7 +37,7 @@
 
 %---------------------------------------------------------------------------
 % Formatting for the definitions and their references
-\newcommand{\refformat}[1]{{\textsc{#1}}}			 %formatting of references to definitions
+\newcommand{\refformat}[1]{{\sffamily \textsc{#1}}}			 %formatting of references to definitions
 \newcommand{\defformat}[1]{{\textbf{\refformat{#1}}}}%formatting of definitions --> References in bold face
 
 %---------------------------------------------------------------------------
@@ -105,7 +120,7 @@
 %---------------------------------------------------------------------------
 %Start the Document
 \begin{document}
-
+\sffamily %without serifs
 
 
 %---------------------------------------------------------------------------
