@@ -45,10 +45,10 @@
 \declaretheoremstyle[
     spaceabove=6pt, 
     spacebelow=6pt, 
-    headfont=\normalfont\bfseries,
-    notefont=\mdseries\bfseries, 
+    headfont=\normalfont\bfseries\sffamily, %without serifs
+    notefont=\mdseries\bfseries\sffamily, %without serifs
     notebraces={}{},%to not have anything around the name
-    bodyfont=\normalfont,
+    bodyfont=\normalfont\sffamily, %without serifs
     postheadspace=1em,
     headpunct={:}]{defstyle}
 \declaretheorem[numbered=no, style = defstyle]{Definition}
